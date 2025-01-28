@@ -9,14 +9,13 @@ const SpotifyAuth = ({ onAuthSuccess }) => {
     const accessToken = params.get('access_token');
 
     if (accessToken) {
-        console.log('Access Token:', accessToken); // Debugging
-        spotifyApi.setAccessToken(accessToken);
-        onAuthSuccess(spotifyApi);
+      spotifyApi.setAccessToken(accessToken);
+      onAuthSuccess(spotifyApi);
     }
   }, [onAuthSuccess]);
 
   const handleLogin = () => {
-    const clientId = 'abbcd7badf85403f82035020deafb886';
+    const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
     const redirectUri = encodeURIComponent('http://localhost:3000/callback');
     const scopes = encodeURIComponent('playlist-modify-public playlist-modify-private');
     const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=${redirectUri}&scope=${scopes}`;
